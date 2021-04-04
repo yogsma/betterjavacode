@@ -1,0 +1,5 @@
+create database modelmapperdemo;
+use modelmapperdemo;
+create table customer (id int not null auto_increment, firstName varchar(255) not null, lastName varchar(255) not null, email varchar(255) not null, primary key(id));
+create table address (id int not null auto_increment, street varchar(255), city varchar(255), state varchar(255), country varchar(255), zipcode int, primary key(id));
+create table orders (id int not null auto_increment, orderItem varchar(255) not null, description varchar(255), customer_id int, address_id int, primary key(id), foreign key(customer_id) references customer(id), foreign key(addressI_id) references address(id));
