@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>To Do List</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/fontawesome-all.css}" rel="stylesheet">
+    <link th:href="@{/css/swiper.css}" rel="stylesheet">
+    <link th:href="@{/css/magnific-popup.css}" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+
+    <style type="text/css">
+        .color{
+           background-color:#ffffcc;
+        }
+        .btn-lg{
+            padding: 10px 55px;
+            font-size:20px;
+            border-radius:10px;
+        }
+    </style>
+
+</head>
+
+<body class="color">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark"
+                                                      style="text-decoration:none;" th:href="@{/}">TO DO LIST</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" style="text-decoration:none;" href="#contact"
+        >Contact</a>
+        <a class="p-2 text-dark" style="text-decoration:none;" href="about" >
+            About</a>
+        <a class="p-2 text-dark" style="text-decoration:none;" href="#info">Info</a>
+        <a class="p-2 text-dark" style="text-decoration:none;" href="blog" >
+            Blog</a>
+        <a class="p-2 text-dark" style="text-decoration:none;" href="pricing"
+        >Advertise</a>
+    </nav>
+    <a class="btn btn-outline-primary" style="text-decoration:none;" href="#"
+       th:href="@{/login}">Log In</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+            <h1>Sign Up</h1>
+            <p>Fill out the form below to sign up.</p>
+
+            <div class="form-container">
+                <form id="signup-form" th:action="@{/signup}" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="firstname" id="firstname"
+                               class="form-control-input" required>
+                        <label class="label-control" for="firstname">First Name</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="lastname" id="lastname"
+                               class="form-control-input" required>
+                        <label class="label-control" for="lastname">Last Name</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" id="email"
+                               class="form-control-input" required>
+                        <label class="label-control" for="email">Email</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password"
+                               class="form-control-input" required>
+                        <label class="label-control" for="password">Password</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirmpassword"
+                               id="confirmpassword" class="form-control-input" required>
+                        <label class="label-control" for="confirmpassword">Confirm Password
+                        </label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="action" value="Submit" class="form-control-submit-button">SIGN
+                            UP</button>
+                    </div>
+                    <div class="form-message">
+                        <div id="smsgSubmit" class="h3 text-center hidden"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--<div class="col-lg-6 col-lg-offset-3">
+            <form th:action="@{/signup}" method="POST" class="form-signin" id="signup-form">
+                <h3 class="form-signin-heading" th:text="Welcome"></h3>
+                <br/>
+                <input type="text" name="firstname"  th:placeholder="FirstName" class="form-control" style="width:350px"/><br/>
+                <input type="text" name="lastname"  th:placeholder="LastName" class="form-control" style="width:350px"/><br/>
+                <input type="text" name="email"   th:placeholder="Email"
+                       class="form-control" style="width:350px"/> <br/>
+                <input type="password"   th:placeholder="Password"
+                       name="password" class="form-control" style="width:350px"/> <br />
+                <input type="password"  th:placeholder="ConfirmPassword"
+                       name="confirmpassword" class="form-control" style="width:350px"/> <br />
+
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-lg" name="action" value="Submit" type="Submit" th:text="Submit">Submit</button>
+                    <button class="btn btn-primary btn-lg" name="action" value="Cancel" type="Cancel" th:text="Cancel">Cancel</button>
+                </div><br/>
+            </form>
+        </div> -->
+    </div>
+
+</div>
+</body>
+<footer class="footer color">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <span class="text-muted">Â© Copyright 2021</span>
+            </div>
+        </div>
+    </div>
+</footer>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.validate.min.js}"></script>
+<script>
+        $(document).ready(function(){
+            $('#signup-form').validate({
+                rules:{
+                    firstname:{
+                        required: true
+                    },
+                    lastname:{
+                        required: true
+                    },
+                    email:{
+                        required: true
+                    },
+                    password:{
+                        required: true
+                    },
+                    confirmpassword:{
+                        required: true
+                    }
+                }
+            })
+        })
+    </script>
+</html>
