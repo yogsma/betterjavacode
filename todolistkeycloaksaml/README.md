@@ -1,8 +1,9 @@
-# How to run this project
+
 # Prerequisite
  - You should have keycloak downloaded before you can run keycloak.
  - You should have your JAVA_HOME set in path to run java -jar command
 
+# How to run this project
 1. Build the project - On command line from project directory
  - gradlew clean build
 
