@@ -1,0 +1,15 @@
+{
+  "name": "pubsubdemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yogesh Mali",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.18.4",
+    "dotenv": "~4.0.0"
+  }
+}
