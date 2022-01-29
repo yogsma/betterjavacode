@@ -1,0 +1,91 @@
+buildscript {
+	ext {
+		springBootVersion = '2.6.2'
+		wrapperVersion = '1.0.17.RELEASE'
+		shadowVersion = '5.1.0'
+	}
+	repositories {
+		mavenLocal()
+		jcenter()
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
+		classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE")
+	}
+}
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'eclipse'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.betterjavacode'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+	springCloudFunctionVersion = "3.2.1"
+	awsLambdaEventsVersion = "2.0.2"
+	awsLambdaCoreVersion = "1.2.1"
+}
+
+assemble.dependsOn = [shadowJar]
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.betterjavacode.springcloudfunctiondemo.SpringcloudfunctiondemoApplication'
+	}
+}
+
+import com.github.jengelman.gradle.plugins.shadow.transformers.*
+
+shadowJar {
+	classifier = 'aws'
+	dependencies {
+		exclude(
+				dependency("org.springframework.cloud:spring-cloud-function-web:${springCloudFunctionVersion}"))
+	}
+	// Required for Spring
+	mergeServiceFiles()
+	append 'META-INF/spring.handlers'
+	append 'META-INF/spring.schemas'
+	append 'META-INF/spring.tooling'
+	transform(PropertiesFileTransformer) {
+		paths = ['META-INF/spring.factories']
+		mergeStrategy = "append"
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-function-dependencies:${springCloudFunctionVersion}"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.cloud:spring-cloud-function-adapter-aws:3.2.1'
+	implementation "com.amazonaws:aws-lambda-java-events:${awsLambdaEventsVersion}"
+	implementation "com.amazonaws:aws-lambda-java-core:${awsLambdaCoreVersion}"
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
