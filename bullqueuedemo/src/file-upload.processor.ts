@@ -1,15 +1,17 @@
-import { Process, Processor } from "@nestjs/bull";
-import { Job } from "bull";
 import { UserService } from "./user.service";
+import { Job } from "bullmq";
+import { Processor, WorkerHost } from "@nestjs/bullmq";
+
 const csv = require('csvtojson');
 
 @Processor('file-upload-queue')
-export class FileUploadProcessor {
+export class FileUploadProcessor extends WorkerHost{
 
-    constructor(private readonly userService: UserService){}
-
-    @Process('csvfilejob')
-    async processFile(job: Job) {
+    constructor(private readonly userService: UserService){
+        super();
+    }
+    
+    async process(job: Job) {
         const file = job.data.file;
         const filePath = file.path;
         const userData = await csv().fromFile(filePath);
