@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="core/head :: head">  <meta charset="utf-8">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="register-logo">
+        <a href="#">Welcome to Two-Factor Auth Demo</a>
+    </div>
+    <div class="card">
+
+        <div class="card-body register-card-body">
+            <div class="alert alert-success" role="alert" th:if="${registrationMsg != null}">
+                <p th:text="${registrationMsg}"></p>
+            </div>
+            <div th:if="${registrationMsg != null}">
+                <img class="col-md-12" th:src="${qrCode}" />
+                <p th:text="${qrCodeKey}"></p>
+            </div>
+            <div th:if="${registrationMsg == null}">
+                <p class="login-box-msg">Register a new account</p>
+                <form action="#" th:action="@{/register}" th:object="${userData}" method="post">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name"
+                               th:errorclass="is-invalid">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last Name"
+                               th:errorclass="is-invalid">
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" th:field="*{email}" placeholder="Email"
+                               th:errorclass="is-invalid">
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" th:field="*{password}" placeholder="Password"
+                               th:errorclass="is-invalid">
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Retype password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <label for="agreeTerms">
+                                    I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+            <a href="login" class="text-center">I already have an Account</a>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#locale").change(function () {
+            var selectedOption = $('#locale').val();
+            if (selectedOption != '') {
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
