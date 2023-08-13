@@ -6,3 +6,6 @@
 - Spring Retry vs Resilience4j Retry - https://betterjavacode.com/programming/spring-retry-vs-resilience4j-retry
 - Conversion of Entity to DTO Using ModelMapper - https://betterjavacode.com/spring-boot/conversion-of-entity-to-dto-using-modelmapper
 - Example of Spring Boot Application Authentication with AWS Cognito - https://betterjavacode.com/programming/example-of-spring-boot-application-authentication-with-aws-cognito
+
+- Two Factor Authentication with Spring Security - Part I - https://betterjavacode.com/programming/two-factor-authentication-spring-security
+- Two Factor Authentication with Spring Security - Part II - https://betterjavacode.com/programming/two-factor-authentication-with-spring-security-2
