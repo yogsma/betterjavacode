@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model FileEntity {
+  id Int @default(autoincrement()) @id
+  fileName String
+  fileUrl  String 
+  key      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum EventStatus {
+  PENDING
+  PROCESSED
+  IGNORED
+  PUBLISHED
+}
+
+model InternalEvent {
+  id String @id @default(uuid())
+  eventName  String
+  eventStatus EventStatus
+  eventPayload Json @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
